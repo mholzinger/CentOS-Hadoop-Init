@@ -34,3 +34,17 @@ child.expect('Enter same passphrase again')
 child.sendline('\n')
 END
 
+# Stop NetworkManager service
+sudo service NetworkManager stop
+
+# Configure chkconfig so that the NetworkManager service cannot start at startup
+sudo chkconfig NetworkManager off
+
+#Now Add default Net Manager
+sudo chkconfig network on
+
+#sudo yum -y uninstall NetworkManager
+sudo rm -f /etc/udev/rules.d/70-persistent-net.rules
+
+system-config-network
+service network restart
