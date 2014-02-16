@@ -48,3 +48,4 @@ sudo rm -f /etc/udev/rules.d/70-persistent-net.rules
 
 system-config-network
 service network restart
+
