@@ -1,22 +1,26 @@
 #!/bin/bash
 
-# Disable SELinux
-sudo sed -i.backup -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+# Test for SELinux disabled
+SESTAT=$( getenforce )
+S2='Disabled'
+if [ "$SESTAT" != "$S2" ];
+    then
+    echo "SELinux is ('$SESTAT') - set to ('$S2') and reboot"
+    exit
+fi
 
-# placeholder code for stopping service without rebooting
-
-# grab and install cloudera components
+# Grab and install cloudera components
 cd /tmp
 wget http://archive.cloudera.com/cm4/installer/latest/cloudera-manager-installer.bin
 chmod u+x cloudera-manager-installer.bin
 sudo ./cloudera-manager-installer.bin
 
-# login with admin:admin
+# Login with admin:admin
 firefox  http://localhost:7180
 
-# restart cloudera service
+# Restart cloudera service
 sudo service cloudera-scm-server restart
 
-# login with admin:admin
+# Login with admin:admin
 firefox  http://localhost:7180
 

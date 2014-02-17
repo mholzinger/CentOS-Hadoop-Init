@@ -75,3 +75,9 @@ sudo rpm -Uvh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-
 # Install HTOP
 sudo yum -y install htop
 
+# Disable Security-Enhanced linux (SELinux)
+sudo sed -i.backup -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+sudo setenforce 0
+
+# Placeholder code for stopping service without rebooting
+
