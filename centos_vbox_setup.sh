@@ -10,12 +10,7 @@ currentuser=$( whoami )
 su -c "echo '$currentuser  ALL=(ALL:ALL) ALL' >> /etc/sudoers"
 
 # setup python dependencies
-wget --no-check-certificate https://pypi.python.org/packages/source/p/pexpect/pexpect-3.1.tar.gz
-tar xvf pexpect-3.1.tar.gz 
-cd pexpect-3.1
-python setup.py build
-sudo python setup.py install
-cd ..
+sudo easy_install pexpect
 
 # use python to generate ssh keys
 python - <<END
@@ -40,19 +35,18 @@ sudo service NetworkManager stop
 # Configure chkconfig so that the NetworkManager service cannot start at startup
 sudo chkconfig NetworkManager off
 
-#Now Add default Net Manager
+# Add default Net Manager
 sudo chkconfig network on
 
-#sudo yum -y uninstall NetworkManager
+# Sudo yum -y uninstall NetworkManager
 sudo rm -f /etc/udev/rules.d/70-persistent-net.rules
 
 system-config-network
 service network restart
 
-#install htop
+# Install htop
 cd /tmp
 wget http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/htop-0.9-1.el6.rf.x86_64.rpm
-rpm -i htop-0.9-1.el6.rf.x86_64.rpm
-yum install htop
+sudo rpm -i htop-0.9-1.el6.rf.x86_64.rpm
 
 
