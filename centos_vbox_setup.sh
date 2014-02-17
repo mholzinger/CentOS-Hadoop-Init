@@ -1,5 +1,13 @@
 #!/bin/bash
 
+check_err(){ error_state=$(echo $?)
+if [[ "$error_state" != "0" ]];then
+    echo $1
+    exit
+fi
+}
+
+
 mkdir ~/bin
 cat>~/bin/amiup<<'EOF'
 #!/bin/bash
@@ -80,4 +88,18 @@ sudo sed -i.backup -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/conf
 sudo setenforce 0
 
 # Placeholder code for stopping service without rebooting
+
+# Set (FQDN) Fully-Qualified Domain Name and test w/ (hostname -f)
+ipv4=$( ifconfig eth0 | grep "inet addr" | awk '{ print $2 }' | awk 'BEGIN { FS=":" } { print $2 }' )
+
+unix_host=$( /bin/hostname )
+
+host=$( /bin/hostname | cut -d '.' -f 1 )
+
+su -c "echo '$ipv4 $unix_host $host' >> /etc/hosts"
+#echo "$ipv4 $unix_host $host"
+
+# Test fqdn set
+hostname -f > /dev/null 2>&1
+check_err "FQDN set host failed. Hadoop cannot operate until this is resolved"
 
