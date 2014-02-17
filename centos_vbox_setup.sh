@@ -99,7 +99,7 @@ host=$( /bin/hostname | cut -d '.' -f 1 )
 su -c "echo '$ipv4 $unix_host $host' >> /etc/hosts"
 #echo "$ipv4 $unix_host $host"
 
-# Test fqdn set
+# Test FQDN set
 hostname -f > /dev/null 2>&1
 check_err "FQDN set host failed. Hadoop cannot operate until this is resolved"
 
