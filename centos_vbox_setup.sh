@@ -49,3 +49,10 @@ sudo rm -f /etc/udev/rules.d/70-persistent-net.rules
 system-config-network
 service network restart
 
+#install htop
+cd /tmp
+wget http://apt.sw.be/redhat/el6/en/x86_64/rpmforge/RPMS/htop-0.9-1.el6.rf.x86_64.rpm
+rpm -i htop-0.9-1.el6.rf.x86_64.rpm
+yum install htop
+
+
