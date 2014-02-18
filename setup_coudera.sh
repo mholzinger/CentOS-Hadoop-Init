@@ -15,12 +15,11 @@ wget http://archive.cloudera.com/cm4/installer/latest/cloudera-manager-installer
 chmod u+x cloudera-manager-installer.bin
 sudo ./cloudera-manager-installer.bin
 
-# Login with admin:admin
-firefox  http://localhost:7180
+# At this point the installer launches a firefox browser at :7180 before the service has started 
 
 # Restart cloudera service
 sudo service cloudera-scm-server restart
 
 # Login with admin:admin
-firefox  http://localhost:7180
+firefox  http://localhost:7180 &
 
