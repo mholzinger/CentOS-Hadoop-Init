@@ -75,7 +75,11 @@ sudo rm -f /etc/udev/rules.d/70-persistent-net.rules
 system-config-network
 service network restart
 
-# Install rpmforge packages
+# Config network interface cards to activate on startup
+sudo sed -i.backup -e 's/ONBOOT=no/ONBOOT=yes/g' /etc/sysconfig/networking/devices/ifcfg-eth0
+sudo sed -i.backup -e 's/ONBOOT=no/ONBOOT=yes/g' /etc/sysconfig/networking/devices/ifcfg-eth1
+
+# Install rpmforge source repositories (for htop)
 cd /tmp
 wget http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el5.rf.x86_64.rpm
 sudo rpm -Uvh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el5.rf.x86_64.rpm
